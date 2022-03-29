@@ -17,8 +17,8 @@ body {
 /* 
 post
 *****************************/
-.post_form{
-  padding: 20px 40px ;
+.post_form {
+  padding: 20px 40px;
   border-bottom: 1px solid #ccc;
 }
 
@@ -29,7 +29,7 @@ post
   border: 1px solid #ccc;
 }
 
-.post_form textarea{
+.post_form textarea {
   width: 70%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -38,10 +38,34 @@ post
 .posts ul {
   padding: 0%;
 }
+.posts li .menu_icon {
+  width: 20px;
+  position: absolute;
+  top: 18px;
+  right: 30px;
+}
+
+.posts li .menu {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 15px;
+  border: 1px solid #ccc;
+  background-color: skyblue;
+  padding: 10px 15px;
+  font-size: 13px;
+  border-radius: 3px;
+}
+.posts li .menu a {
+  text-decoration: none;
+}
 
 .posts li {
   display: flex;
-  padding: 10%;
+  padding-top: 1%;
+  padding-left: 5%;
+  padding-bottom: 2%;
+  position: relative;
 }
 
 .posts li .logo {

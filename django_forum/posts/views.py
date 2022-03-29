@@ -7,21 +7,43 @@ from .forms import PostForm
 
 
 def index(request):
-    # IF THE METHOD IS POPST
+    # If the method is POST
     if request.method == 'POST':
-        form = PostForm(request)
-    # IF THE FORM IS VALID
+        form = PostForm(request.POST, request.FILES)
+        # If the form is valid
         if form.is_valid():
-         # YES, SAVE
+            # Yes, Save
             form.save()
-         # REDIRECT TO HOME
+            print("Hello its valid")
+
+            # Redirect to Home
             return HttpResponseRedirect('/')
 
         else:
-            # NO, SHOW ERROR
-            return HttpResponseRedirect(form.error.as_json())
-
-    # GET ALL POST LIMIT=20
-    posts = Post.objects.all()[:20]
- # Show
+            # No,Show Error
+            print("its not valid")
+            return HttpResponseRedirect(form.errors.as_json())
+    # Get all posts, limit = 20
+    posts = Post.objects.all().order_by('-created_at')[:20]
+    form = PostForm()
     return render(request, 'posts.html', {'posts': posts})
+
+
+def delete(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.delete()
+    return HttpResponseRedirect('/')
+
+
+def edit(request, id):
+    if request.method == "GET":
+        posts = Post.objects.get(id=id)
+        return render(request, "edit.html", {"posts": posts})
+    if request.method == "POST":
+        editposts = Post.objects.get(id=id)
+        form = PostForm(request.POST, request.FILES, instance=editposts)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect("/")
+        else:
+            return HttpResponse("not valid")
